@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -27,10 +28,6 @@ app.get("/posts/:id/delete", (req, res, next) => {
 
 app.get("/posts/login", (req, res, next) => {
     return res.send("GET Method for login");
-});
-
-app.get("/posts/register", (req, res, next) => {
-    return res.send("GET Method for register");
 });
 
 app.listen(5000, () => console.log("Listening on port 5000"));
