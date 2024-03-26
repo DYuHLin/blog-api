@@ -6,5 +6,5 @@ require('dotenv').config();
 
 
 exports.get_register = asyncHandler((req, res, next) => {
-
+    
 });

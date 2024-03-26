@@ -12,10 +12,10 @@ const app = express();
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://dyhlin2000:damian1216@cluster0.m0q0vry.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0";
 
- app.use(cors());
- app.use(express.json());
- app.use(bodyParser.urlencoded({ extended: true }))
- app.use(bodyParser.json())
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 async function main(){
     mongoose.connect(mongoDB);
@@ -27,23 +27,6 @@ main().catch((err) => {console.log(err)});
 //     let {email, password} = req.body;
 // });
 
- //format of token
- //authorization bearer <access_token>
-
-
- const verifyToken = ((req, res, next) => {
-    //get auth header value
-    const bearerHeader = req.headers['authorization'];
-
-    //check if bearer is undefinef
-    if(typeof bearerHeader !== "undefined"){
-
-    } else {
-        //forbidden
-        res.sendSatus(403);
-    };
-});
-
  app.get("/posts", (req, res, next) => {
      res.json({
         message: "GET Method for posts"
@@ -51,8 +34,15 @@ main().catch((err) => {console.log(err)});
  });
 
  app.post("/posts/post", verifyToken, (req, res, next) => {
-    res.json({
-        message: "GET Method for post"
+    jwt.verify(req.token, 'secretkey', (err, authData) => {
+        if(err){
+            res.sendStatus(403);
+        } else {
+            res.json({
+                message: "GET Method for post",
+                authData
+            });
+        };
     });
  });
 
@@ -71,6 +61,28 @@ main().catch((err) => {console.log(err)});
         });
     });
  });
+
+  //format of token
+ //authorization bearer <access_token>
+ function verifyToken(req, res, next){
+    //get auth header value
+    const bearerHeader = req.headers['authorization'];
+
+    //check if bearer is undefined
+    if(typeof bearerHeader !== "undefined"){
+        //split the space in token
+        const bearer = bearerHeader.split(" ");
+        //get token from array
+        const bearerToken = bearer[1];
+        //set tokem
+        req.token = bearerToken;
+        //next middleware
+        next();
+    } else {
+        //forbidden
+        res.sendStatus(403);
+    };
+};
 
 // app.get("/posts/:id", (req, res, next) => {
 //     return res.send("GET Method for specific post");
