@@ -14,8 +14,10 @@ const mongoDB = "mongodb+srv://dyhlin2000:damian1216@cluster0.m0q0vry.mongodb.ne
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 async function main(){
     mongoose.connect(mongoDB);
@@ -26,6 +28,11 @@ main().catch((err) => {console.log(err)});
 // app.post("/posts/login", (req, res, next) => {
 //     let {email, password} = req.body;
 // });
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 
  app.get("/posts", (req, res, next) => {
      res.json({
