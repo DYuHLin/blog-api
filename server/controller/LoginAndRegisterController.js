@@ -51,6 +51,7 @@ exports.post_register = asyncHandler(async (req, res, next) => {
                     name: req.body.name,
                     surname: req.body.surname,
                     username: req.body.username,
+                    email: req.body.email,
                     password: hashedPassword,
                 });
 
