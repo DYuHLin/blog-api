@@ -3,7 +3,6 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const passport = require("passport");
 const mongoose = require('mongoose');
 const register = require("./routes/register");
 
@@ -19,8 +18,6 @@ app.use(express.json());
 app.use(session({secret: "cats", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
 async function main(){
     mongoose.connect(mongoDB);

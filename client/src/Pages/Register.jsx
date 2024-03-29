@@ -23,10 +23,6 @@ function Register() {
      });
   };
 
-  useEffect(() => {
-
-  }, []);
-
   return (
     <section>
       <h1>register</h1>

@@ -2,42 +2,8 @@ const asyncHandler = require('express-async-handler');
 const {body, ValidationResult} = require('express-validator');
 const users = require('../models/users');
 const jwt = require('jsonwebtoken');
-const passport = require("passport");
 const bcrypt = require('bcryptjs');
-const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
-
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-        try{
-            const user = await users.findOne({username: username});
-            if(!user){
-                return done(null, false, {message: "Incorrect username"});
-            }
-            const match = await bcrypt.compare(password, user.password);
-            if(!match){
-                return done(null, false, {message: "Incorrect password"});
-            }
-            return done(null, user);
-        }catch(err){
-            return done(err);
-        };
-    })
-);
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-    try{
-        const user = await users.findById(id);
-        done(null, user);
-    }catch(err){
-        done(err);
-    };
-});
-
 
 exports.post_register = asyncHandler(async (req, res, next) => {
     try{
@@ -63,3 +29,47 @@ exports.post_register = asyncHandler(async (req, res, next) => {
         next(err);
     };
 });
+
+exports.post_login = asyncHandler(async (req, res, next) => {
+    try{
+        const userName = users.findOne({username: req.body.username});
+        if(!userName){
+            console.log("Incorrect username");
+        };
+        
+        const userIn = {
+            id: 1,
+            username: "dame",
+            email: "dame@gmail.com",
+        }
+
+
+        return jwt.sign({user: userIn}, 'secretkey', (err, token) =>  {
+            res.json({
+                token: token
+            });
+        });
+    }catch(err){
+        console.log(err);
+    };
+});
+
+function verifyToken(req, res, next){
+    //get auth header value
+    const bearerHeader = req.headers['authorization'];
+
+    //check if bearer is undefined
+    if(typeof bearerHeader !== "undefined"){
+        //split the space in token
+        const bearer = bearerHeader.split(" ");
+        //get token from array
+        const bearerToken = bearer[1];
+        //set tokem
+        req.token = bearerToken;
+        //next middleware
+        next();
+    } else {
+        //forbidden
+        res.sendStatus(403);
+    };
+};
