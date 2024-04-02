@@ -20,6 +20,7 @@ function Register() {
        body: JSON.stringify(register)
      }).then(() => {
       console.log("registered");
+      
      });
   };
 

@@ -22,7 +22,6 @@ exports.post_register = asyncHandler(async (req, res, next) => {
                 });
 
                 const newUser = user.save();
-                res.redirect("/login");
             };
         });
     }catch(err){
@@ -32,19 +31,17 @@ exports.post_register = asyncHandler(async (req, res, next) => {
 
 exports.post_login = asyncHandler(async (req, res, next) => {
     try{
-        const userName = users.findOne({username: req.body.username});
+        const userName = await users.findOne({username: req.body.username});
         if(!userName){
             console.log("Incorrect username");
         };
-        
-        const userIn = {
-            id: 1,
-            username: "dame",
-            email: "dame@gmail.com",
-        }
 
+        const match = await bcrypt.compare(req.body.password, userName.password);
+        if(!match){
+            return console.log("Incorrect Password");
+        };
 
-        return jwt.sign({user: userIn}, 'secretkey', (err, token) =>  {
+        return jwt.sign({user: userName}, 'secretkey', (err, token) =>  {
             res.json({
                 token: token
             });

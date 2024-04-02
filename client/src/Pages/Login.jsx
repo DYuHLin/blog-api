@@ -6,6 +6,15 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const login = {username, password};
+
+    fetch("http://localhost:5000/posts/login", {
+      method: "POST",
+      headers: {"content-Type": "application/json"},
+      body: JSON.stringify(login)
+    }).then(() => {
+      console.log("Logged In");
+    });
   };
 
   return (
