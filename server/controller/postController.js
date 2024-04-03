@@ -3,7 +3,9 @@ const {body, validationResult} = require('express-validator');
 const posts = require('../models/posts');
 
 exports.get_posts = asyncHandler(async (req, res, next) => {
-    await posts.find().populate("user").exec();
+    const post = await posts.find().populate("user").exec();
+
+    return res.json(post);
 });
 
 exports.post_post = asyncHandler(async (req, res, next) => {

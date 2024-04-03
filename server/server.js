@@ -6,6 +6,7 @@ const session = require("express-session");
 const mongoose = require('mongoose');
 const register = require("./routes/register");
 const login = require("./routes/login");
+const post = require("./routes/post");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
 app.use("/posts/register", register);
 app.use("/posts/login", login);
+app.use("/posts", post);
 
  app.get("/posts", (req, res, next) => {
      res.json({
