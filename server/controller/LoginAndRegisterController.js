@@ -21,7 +21,7 @@ exports.post_register = asyncHandler(async (req, res, next) => {
                     password: hashedPassword,
                 });
 
-                const newUser = user.save();
+                await user.save();
             };
         });
     }catch(err){
