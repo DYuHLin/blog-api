@@ -4,6 +4,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import App from './App'
 import Home from './Pages/home'
+import Create from './Pages/create'
 
 function Router() {
 
@@ -19,6 +20,10 @@ function Router() {
         {
             path: "/posts/register",
             element: <Register/>
+        },
+        {
+            path: "/posts/create",
+            element: <Create/>
         }
     ])
 

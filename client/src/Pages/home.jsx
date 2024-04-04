@@ -16,7 +16,9 @@ function home() {
 
   return (
     <section>
-
+      {posts.map((blog) => {
+        
+      })}
     </section>
   )
 }

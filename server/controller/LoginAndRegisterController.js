@@ -51,7 +51,7 @@ exports.post_login = asyncHandler(async (req, res, next) => {
     };
 });
 
-function verifyToken(req, res, next){
+exports.verifyToken = (req, res, next) =>{
     //get auth header value
     const bearerHeader = req.headers['authorization'];
 
