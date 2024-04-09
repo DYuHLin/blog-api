@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const login = {username, password};
-
-    fetch("http://localhost:5000/posts/login", {
-      method: "POST",
-      headers: {"content-Type": "application/json"},
-      body: JSON.stringify(login)
-    }).then(() => {
-      console.log("Logged In");
-    });
+    try{
+      const res = await axios.post("/posts/login", {username, password});
+    }catch(err){
+      console.log(err);
+    };
+    // fetch("http://localhost:5000/posts/login", {
+    //   method: "POST",
+    //   headers: {"content-Type": "application/json"},
+    //   body: JSON.stringify(login)
+    // }).then(() => {
+    //   console.log("Logged In");
+    // });
   };
 
   return (

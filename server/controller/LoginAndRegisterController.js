@@ -122,7 +122,8 @@ exports.verifyToken = (req, res, next) =>{
     };
 
     exports.post_logout = asyncHandler(async (req, res, next) => {
-        const token = req.body.token;
-        
+        const refreshToken = req.body.token;
+        refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+        res.status(200).json("You have logged out.");
     });
 };
