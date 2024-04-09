@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require('mongoose');
 const register = require("./routes/register");
+const refresh = require("./routes/refresh");
 const login = require("./routes/login");
 const post = require("./routes/post");
 
@@ -17,6 +19,7 @@ const mongoDB = "mongodb+srv://dyhlin2000:damian1216@cluster0.m0q0vry.mongodb.ne
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(session({secret: "cats", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -38,6 +41,7 @@ app.use((req, res, next) => {
 
 app.use("/posts/register", register);
 app.use("/posts/login", login);
+app.use("/posts/refresh", refresh);
 app.use("/posts", post);
 
  app.get("/posts", (req, res, next) => {

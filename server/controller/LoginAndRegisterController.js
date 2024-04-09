@@ -29,6 +29,16 @@ exports.post_register = asyncHandler(async (req, res, next) => {
     };
 });
 
+let refreshTokens = [];
+
+const getAccessToken = (user) => {
+    return jwt.sign({user}, 'secretkey');
+};
+
+const getRefreshToken = (user) => {
+    return jwt.sign({user}, 'refreshsecretkey');
+};
+
 exports.post_login = asyncHandler(async (req, res, next) => {
     try{
         const userName = await users.findOne({username: req.body.username});
@@ -41,14 +51,55 @@ exports.post_login = asyncHandler(async (req, res, next) => {
             return console.log("Incorrect Password");
         };
 
-        return jwt.sign({user: userName}, 'secretkey', (err, token) =>  {
-            res.json({
-                token: token
-            });
+        // jwt.sign({user: userName}, 'secretkey', (err, token) =>  {
+        //     res.json({
+        //         token: token
+        //     });
+        // });
+
+        // jwt.sign({user: userName}, 'refreshsecretkey', (err, token) =>  {
+        //     res.json({
+        //         token: token
+        //     });
+        // });
+        const accessToken = getAccessToken(userName);
+        const refreshToken = getRefreshToken(userName);
+
+        refreshTokens.push(refreshToken);
+
+        res.json({
+            accessToken: accessToken,
+            refreshToken: refreshToken
         });
+
     }catch(err){
         console.log(err);
     };
+});
+
+exports.refresh_token = asyncHandler(async (req, res, next) => {
+    //token from user
+    const refreshToken = req.body.token;
+    //send error if there is no token or invalid
+    if(!refreshToken) return res.status(403).json("You are not authenticated");
+    if(refreshTokens.includes(refreshToken)){
+        return res.status(403).json("refresh token is not valid");
+    };
+    jwt.verify(refreshToken, "refreshsecretkey", (err, user) => {
+        err && console.log(err);
+        refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+
+        const newAccessToken = getAccessToken(user);
+        const newRefreshToken = getRefreshToken(user);
+
+        refreshTokens.push(newRefreshToken);
+
+        res.status(200).json({
+            accessToken: newAccessToken,
+            refreshToken: newRefreshToken
+        });
+    });
+    //if everything is ok create a new access token, refresh token and send to user
 });
 
 exports.verifyToken = (req, res, next) =>{
@@ -69,4 +120,9 @@ exports.verifyToken = (req, res, next) =>{
         //forbidden
         res.sendStatus(403);
     };
+
+    exports.post_logout = asyncHandler(async (req, res, next) => {
+        const token = req.body.token;
+        
+    });
 };

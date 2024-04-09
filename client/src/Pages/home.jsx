@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import '../assets/App.css'
 
 function home() {
 
@@ -16,6 +17,7 @@ function home() {
 
   return (
     <section>
+      <h1>Home</h1>
       {posts.map((blog) => {
         
       })}
