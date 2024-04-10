@@ -16,7 +16,6 @@ function Router() {
         {
             path: "/posts/login",
             element: <Login/>,
-            errorElement: <h1>404 Not Found</h1>
         },
         {
             path: "/posts/register",

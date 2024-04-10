@@ -1,17 +1,22 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios';
-import UserContext, { userProvider } from '../UserContext';
+import UserContext from '../UserContext';
+import {useNavigate} from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const {user, setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post("/posts/login", {username, password});
+      const res = await axios.post("http://localhost:5000/api/login", {username, password});
+      setUser(res.data);
+      
     }catch(err){
       console.log(err);
     };
@@ -22,10 +27,10 @@ function Login() {
     // }).then(() => {
     //   console.log("Logged In");
     // });
+    navigate('/posts/create');
   };
 
   return (
-    <userProvider>
       <section>
         <h1>Login</h1>
         <form method="POST" onSubmit={handleSubmit}>
@@ -36,7 +41,6 @@ function Login() {
           <button>Login</button>
         </form>
         </section>
-    </userProvider>
   )
 }
 

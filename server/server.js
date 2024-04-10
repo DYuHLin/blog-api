@@ -40,11 +40,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/posts/register", register);
-app.use("/posts/login", login);
+app.use("/api/register", register);
+app.use("/api/login", login);
 // app.use("/posts/logout", logout);
-app.use("/posts/refresh", refresh);
-app.use("/posts", post);
+app.use("/api/refresh", refresh);
+app.use("/api", post);
 
  app.get("/posts", (req, res, next) => {
      res.json({
