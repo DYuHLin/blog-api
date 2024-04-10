@@ -10,19 +10,23 @@ function Router() {
     const router = createBrowserRouter([
         {
             path: "/posts",
-            element: <App/>
+            element: <App/>,
+            errorElement: <h1>404 Not Found</h1>
         },
         {
             path: "/posts/login",
-            element: <Login/>
+            element: <Login/>,
+            errorElement: <h1>404 Not Found</h1>
         },
         {
             path: "/posts/register",
-            element: <Register/>
+            element: <Register/>,
+            errorElement: <h1>404 Not Found</h1>
         },
         {
             path: "/posts/create",
-            element: <Create/>
+            element: <Create/>,
+            errorElement: <h1>404 Not Found</h1>
         }
     ])
 
