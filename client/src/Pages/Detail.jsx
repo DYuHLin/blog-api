@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import UserContext from '../UserContext';
 import axios from 'axios';
 
@@ -10,16 +10,20 @@ function Detail() {
     const [post, setPost] = useState({});
 
     useEffect(() => {
-        axios({method:'GET', url:`http://localhost:5000/api/${id}`}).then(res => setPost(res.data)).catch(err => console.log(err));   
+        const blog = document.getElementById('blog');
+        axios({method:'GET', url:`http://localhost:5000/api/${id}`})
+            .then(res => setPost(res.data))
+            .catch(err => console.log(err));   
     }, []);
 
   return (
     <section>
         <h1>Blog Details</h1>
+        <Link to={"update"}><p>Update</p></Link>
+        <Link to={"delete"}><p>Delete</p></Link>
         <h2>{post.title}</h2>
-        <div>
-            {post.content}
-        </div>
+        <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
+        <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
     </section>
   )
 }
