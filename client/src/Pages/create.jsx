@@ -2,30 +2,15 @@ import React, {useContext, useState, useRef} from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import {jwtDecode} from 'jwt-decode'
 import UserContext from '../UserContext';
+import {useNavigate} from 'react-router-dom';
 
 function create() {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [published, setPublished] = useState(false);
 
   const {user} = useContext(UserContext);
 
   const ContentRef = useRef();
-
-  const showToken = (e) => {
-    e.preventDefault();
-    const checkBox = document.getElementById('publish');
-    // const decoded = jwtDecode(user.accessToken)
-    // console.log(decoded.user._id)
-    console.log(ContentRef.current.getContent());
-    let publishVal = false;
-    if(checkBox.checked){
-      setPublished(true);
-    } else{
-      setPublished(false);
-    };
-    console.log(published);
-  }
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => { 
     e.preventDefault();
@@ -45,6 +30,7 @@ function create() {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(post)
     }).then(() => {
+      navigate('/posts');
       console.log("Posted");
     })
   };
@@ -61,7 +47,6 @@ function create() {
         <input type="checkbox" id='publish' name='publish' className='publish'/>
         <button>Post Blog</button>
       </form>
-      <button onClick={showToken}>show token</button>
     </section>
   )
 }

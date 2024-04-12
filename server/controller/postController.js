@@ -53,3 +53,9 @@ exports.post_delete_post = asyncHandler(async (req, res, next) => {
 
     await posts.findByIdAndDelete(req.body.postid);
 });
+
+exports.get_single_post = asyncHandler(async (req, res, next) => {
+    const singlePost = await posts.findById(req.params.id).populate("user").exec();
+
+    return res.json(singlePost);
+});
