@@ -51,7 +51,7 @@ exports.update_post = asyncHandler(async (req, res, next) => {
 exports.post_delete_post = asyncHandler(async (req, res, next) => {
     const post = await posts.findById(req.params.id).populate("user").exec();
 
-    await posts.findByIdAndDelete(req.body.postid);
+    await posts.findByIdAndDelete(req.params.id);
 });
 
 exports.get_single_post = asyncHandler(async (req, res, next) => {

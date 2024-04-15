@@ -34,7 +34,6 @@ function Update() {
       body: JSON.stringify(post)
     }).then(() => {
       navigate('/posts');
-      console.log("Posted");
     })
   };
 
