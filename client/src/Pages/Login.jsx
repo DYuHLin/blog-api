@@ -27,7 +27,7 @@ function Login() {
     // }).then(() => {
     //   console.log("Logged In");
     // });
-    navigate('/posts/create');
+    navigate('/posts');
   };
 
   return (
