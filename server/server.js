@@ -10,6 +10,7 @@ const refresh = require("./routes/refresh");
 const login = require("./routes/login");
 // const logout = require("./routes/logout");
 const post = require("./routes/post");
+const comment = require("./routes/comments");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api/login", login);
 // app.use("/posts/logout", logout);
 app.use("/api/refresh", refresh);
 app.use("/api", post);
+app.use("/api/:id", comment);
 
  app.get("/posts", (req, res, next) => {
      res.json({

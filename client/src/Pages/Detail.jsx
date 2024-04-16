@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import UserContext from '../UserContext';
 import axios from 'axios';
+import WriteComment from '../Components/WriteComment';
 
 function Detail() {
     let { id } = useParams();
@@ -24,6 +25,7 @@ function Detail() {
         <h2>{post.title}</h2>
         <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
         <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
+        <WriteComment paramId = {id} post = {post} />
     </section>
   )
 }
