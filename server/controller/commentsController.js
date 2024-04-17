@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 exports.get_comments = asyncHandler(async (req, res, next) => {
     const comment = await comments.find({post: req.params.id}).populate("user").populate("post").exec();
-    
+
     return res.json(comment);
 });
 
@@ -30,5 +30,5 @@ exports.post_comment = asyncHandler(async (req, res, next) => {
 exports.post_delete_comment = asyncHandler(async (req, res, next) => {
     const post = await comments.findById(req.body.id).populate("user").populate("post").exec();
 
-    await comments.findByIdAndDelete(req.body.id);
+    await comments.findByIdAndDelete(req.params.id);
 });

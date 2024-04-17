@@ -23,15 +23,7 @@ function Detail() {
 
         
     }, []);
-const show = (e) => {
-  e.preventDefault()
-  fetch(`http://localhost:5000/api/${id}/comments`).then(
-    res => res.json()
-    ).then(data => {
-     console.log(data);
-      }
-    );
-}
+    
   return (
     <section>
         <h1>Blog Details</h1>
@@ -42,7 +34,6 @@ const show = (e) => {
         <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
         <WriteComment paramId = {id} post = {post} />
         <Comments paramId = {id} post = {post} comments = {comments}/> 
-        <button onClick={show}>show</button>
     </section>
   )
 }
