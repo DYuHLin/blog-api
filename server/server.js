@@ -46,7 +46,7 @@ app.use("/api/login", login);
 // app.use("/posts/logout", logout);
 app.use("/api/refresh", refresh);
 app.use("/api", post);
-app.use("/api/:id", comment);
+app.use("/api", comment);
 
  app.get("/posts", (req, res, next) => {
      res.json({

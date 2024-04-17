@@ -10,6 +10,10 @@ const commentSchema = new Schema ({
     date: {type: Date, required: true, default: Date.now},
 });
 
+commentSchema.virtual("url").get(() => {
+    return `/api/${this._id}`;
+});
+
 commentSchema.virtual("date_formatted").get(() => {
     return DateTime.fromJSDate(this.date).toLocaleString(DateTime.DATETIME_MED);
 });

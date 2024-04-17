@@ -1,10 +1,11 @@
 const asyncHandler = require('express-async-handler');
 const {body, validationResult} = require('express-validator');
 const comments = require('../models/comments');
+const mongoose = require('mongoose');
 
 exports.get_comments = asyncHandler(async (req, res, next) => {
     const comment = await comments.find({post: req.params.id}).populate("user").populate("post").exec();
-//req.params.id
+    
     return res.json(comment);
 });
 

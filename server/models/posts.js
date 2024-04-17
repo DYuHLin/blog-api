@@ -12,7 +12,7 @@ const postSchema = new Schema ({
 });
 
 postSchema.virtual("url").get(() => {
-    return `/posts/${this._id}`;
+    return `/api/${this._id}`;
 });
 
 postSchema.virtual("date_formatted").get(() => {
