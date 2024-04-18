@@ -14,24 +14,20 @@ function Home() {
     
   }, []);
 
-  const showData = () => {
-    console.log(posts)
-  }
   return (
     <section>
       <h1>Home</h1>
       {posts.map((blog) => {
         return(
-          <Link to={`${blog._id}`}>
             <div className="blog">
+              <Link to={`${blog._id}`}>
             <h3>{blog.title}</h3>
             <span>{blog.date}</span>
-            {/* <p>{blog.user.name}</p> */}
+            {/* <p>{blog.user.username}</p>  */}
+            </Link>
           </div>
-        </Link>
         )
       })}
-      <button onClick={showData}>show</button>
     </section>
   )
 }
