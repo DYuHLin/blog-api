@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 function Comments(props) {
 
-  const [comments, setComments] = useState([{}]);
-
   const deleteComments = (id) => {
     fetch(`http://localhost:5000/api/${id}/deletecomment`, {
       method: "DELETE",
