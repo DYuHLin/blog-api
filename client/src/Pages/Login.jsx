@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios';
 import UserContext from '../UserContext';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -34,12 +34,11 @@ function Login() {
       <section>
         <h1>Login</h1>
         <form method="POST" onSubmit={handleSubmit}>
-          <label htmlFor="username">Username: </label>
-          <input type="text" required name='username' id='username' className='username' onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor="password">Password: </label>
-          <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)}/>
+          <input type="text" required name='username' id='username' className='username' onChange={(e) => setUsername(e.target.value)} placeholder='Username'/>
+          <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
           <button>Login</button>
         </form>
+        <Link to={"/posts/register"}><p>Register</p></Link>
         </section>
   )
 }

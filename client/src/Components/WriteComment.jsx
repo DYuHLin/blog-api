@@ -25,7 +25,7 @@ function WriteComment(props) {
   return (
     <>
     <form method="POST" onSubmit={handleSubmit}>
-        <textarea name="comment" id="" cols="30" rows="10" placeholder='Write a comment' onChange={(e) => setComment(e.target.value)}></textarea>
+        <textarea name="comment" className='comment' id="" cols="30" rows="6" placeholder='Write a comment' onChange={(e) => setComment(e.target.value)}></textarea>
         <button>Comment</button>
     </form>
     </>

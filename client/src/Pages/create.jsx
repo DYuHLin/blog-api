@@ -38,13 +38,15 @@ function create() {
   return (
     <section>
       <form method="POST" onSubmit={handleSubmit}>
-      <label htmlFor="title">Title: </label>
-        <input type="text" required name='title' id='title' className='title' onChange={(e) => setTitle(e.target.value)}/>
-        <label htmlFor="body">Body: </label>
+        <input type="text" required name='title' id='title' className='title' onChange={(e) => setTitle(e.target.value)} placeholder='Title'/>
         <Editor apiKey='7b9bztrodn0kidftvkbg5tuk6lqiwpwtl934lt1s1av1ghzr' name="body" id="body" required className='body' 
           onInit={(evt, editor) => ContentRef.current = editor}/>
-        <label htmlFor="publish">Publish: </label>
-        <input type="checkbox" id='publish' name='publish' className='publish'/>
+        
+        <div className="check-group">
+          <label htmlFor="publish">Publish: </label>
+          <input type="checkbox" id='publish' name='publish' className='publish'/>
+        </div>
+        
         <button>Post Blog</button>
       </form>
     </section>

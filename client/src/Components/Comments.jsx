@@ -12,18 +12,21 @@ function Comments(props) {
   };
 
   return (
-    <section>
-      {props.comments.map((comment) => {
-        return(
-            <div className="comment">
-            <h3>{comment.content}</h3>
-            <span>{comment.date}</span>
-            <p>{comment.user.name}</p> 
-            <button onClick={deleteComments(comment._id)}>Delete</button>
-          </div>
-        )
-      })}
-    </section>
+   
+      <div className="blog">
+        {props.comments.map((comment) => {
+          return(
+            <div className='comment-section'>
+              <div className="comment">
+                <h3>{comment.content}</h3>
+                <span>{comment.date}</span>
+                <p>{comment.user.name}</p> 
+              </div>
+              <button onClick={deleteComments(comment._id)}>Delete</button>
+            </div>
+          )
+        })}
+      </div>
   )
 }
 

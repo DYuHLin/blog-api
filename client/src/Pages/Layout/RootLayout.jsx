@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import '../../assets/App.css'
+import UserContext from '../../UserContext';
 
 function RootLayout() {
+
+  const { user } = useContext(UserContext);
+
   return (
     <div className="root-layout">
         <header>
@@ -10,7 +14,16 @@ function RootLayout() {
 
             <div className="header-links">
                 <NavLink to="/posts">Home</NavLink>
-                <NavLink to="/posts/create">Create</NavLink>
+                
+                {
+                    user ?  <NavLink to="/posts/create">Create</NavLink> : ''
+                }
+                {
+                    user ?  <NavLink to="/posts/create">Your blogs</NavLink> : ''
+                }
+                {
+                    !user ?  <NavLink to="/posts/login">Login</NavLink> : ''
+                }
             </div>
         </header>
 
