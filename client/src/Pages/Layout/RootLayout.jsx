@@ -19,7 +19,7 @@ function RootLayout() {
                     user ?  <NavLink to="/posts/create">Create</NavLink> : ''
                 }
                 {
-                    user ?  <NavLink to="/posts/create">Your blogs</NavLink> : ''
+                    user ?  <NavLink to="/posts/userblogs">Your blogs</NavLink> : ''
                 }
                 {
                     !user ?  <NavLink to="/posts/login">Login</NavLink> : ''

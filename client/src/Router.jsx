@@ -8,6 +8,7 @@ import Detail from './Pages/Detail'
 import Delete from './Pages/Delete'
 import Update from './Pages/Update'
 import Home from './Pages/Home'
+import UserBlogs from './Pages/UserBlogs'
 
 function Router() {
 
@@ -15,6 +16,7 @@ function Router() {
         createRoutesFromElements(
             <Route path='/posts' element={<RootLayout />}>
                 <Route index element={<Home />} />
+                <Route path='/posts/userblogs' element={<UserBlogs />} />
                 <Route path='/posts/login' element={<Login />} />
                 <Route path='/posts/register' element={<Register />} />
                 <Route path='/posts/create' element={<Create />} />

@@ -5,6 +5,7 @@ const verifyToken = require('../controller/LoginAndRegisterController');
 const router = express.Router();
 
 router.get("/", postController.get_posts);
+router.get("/user/:id", postController.get_user_posts);
 router.get("/:id", postController.get_single_post);
 router.post("/create", verifyToken.verifyToken, postController.post_post);
 router.put("/:id/update", verifyToken.verifyToken, postController.update_post);
