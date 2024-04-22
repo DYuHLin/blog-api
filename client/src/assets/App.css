@@ -36,6 +36,10 @@ header {
     align-items: center;
 }
 
+h1{
+    margin-bottom: 50px;
+}
+
 .header-title{
     padding-left: 10px;
 }
@@ -47,6 +51,7 @@ header {
 }
 
 section{
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;

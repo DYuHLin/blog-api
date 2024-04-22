@@ -14,7 +14,7 @@ function Comments(props) {
   return (
    
       <div className="blog">
-        {props.comments.map((comment) => {
+        {props.comments ? <span>There are no comments</span> : props.comments.map((comment) => {
           return(
             <div className='comment-section'>
               <div className="comment">

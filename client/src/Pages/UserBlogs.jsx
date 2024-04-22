@@ -20,16 +20,19 @@ function UserBlogs() {
 
   return (
     <section>
-      <h1>Home</h1>
+      <h1>Your Blogs</h1>
       {posts.map((blog) => {
         return(
-          <Link to={`${blog._id}`}>
+          
             <div className="blog">
-            <h3>{blog.title}</h3>
-            <span>{blog.date}</span>
-            {/* <p>{blog.user.name}</p> */}
+              <Link to={`/posts/${blog._id}`}>
+              <h3>{blog.title}</h3>
+              <span>{blog.date}</span>
+              <p>{blog.published === false ? 'Unpublished' : 'Published'}</p>
+              {/* <p>{blog.user.name}</p> */}
+            </Link>
           </div>
-        </Link>
+        
         )
       })}
     </section>

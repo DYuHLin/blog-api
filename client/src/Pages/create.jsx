@@ -27,7 +27,10 @@ function create() {
   
     fetch('http://localhost:5000/api/create', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + user.accessToken
+                },
       body: JSON.stringify(post)
     }).then(() => {
       navigate('/posts');
