@@ -17,7 +17,10 @@ function Delete() {
   
     fetch(`http://localhost:5000/api/${id}/delete`, {
       method: "DELETE",
-      headers: {"Content-Type": "application/json"},
+      headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + user.accessToken
+                },
     }).then(() => {
       navigate('/posts');
     })

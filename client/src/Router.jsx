@@ -25,42 +25,6 @@ function Router() {
                 <Route path='/posts/:id/delete' element={<Delete />} />
             </Route>
         )
-    //     [
-    //     {
-    //         path: "/posts",
-    //         element: <App/>,
-    //         errorElement: <h1>404 Not Found</h1>,
-    //     },
-    //     {
-    //         path: "/posts/login",
-    //         element: <Login/>,
-    //     },
-    //     {
-    //         path: "/posts/register",
-    //         element: <Register/>,
-    //         errorElement: <h1>404 Not Found</h1>
-    //     },
-    //     {
-    //         path: "/posts/create",
-    //         element: <Create/>,
-    //         errorElement: <h1>404 Not Found</h1>
-    //     },
-    //     {
-    //         path: "/posts/:id",
-    //         element: <Detail/>,
-    //         errorElement: <h1>404 Not Found</h1>
-    //     },
-    //     {
-    //         path: "/posts/:id/update",
-    //         element: <Update/>,
-    //         errorElement: <h1>404 Not Found</h1>
-    //     },
-    //     {
-    //         path: "/posts/:id/delete",
-    //         element: <Delete/>,
-    //         errorElement: <h1>404 Not Found</h1>
-    //     }
-    // ]
 )
 
   return <RouterProvider router = {router} />

@@ -30,7 +30,10 @@ function Update() {
   
     fetch(`http://localhost:5000/api/${id}/update`, {
       method: "PUT",
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": "Bearer " + user.accessToken
+        },
       body: JSON.stringify(post)
     }).then(() => {
       navigate('/posts');

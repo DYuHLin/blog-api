@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import UserContext from '../UserContext';
 
 function Comments(props) {
+  const { user } = useContext(UserContext);
 
   const deleteComments = (id) => {
     fetch(`http://localhost:5000/api/${id}/deletecomment`, {
       method: "DELETE",
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": "Bearer " + user.accessToken
+        },
     }).then(() => {
       navigate('/posts');
     })
@@ -14,7 +19,7 @@ function Comments(props) {
   return (
    
       <div className="blog">
-        {props.comments ? <span>There are no comments</span> : props.comments.map((comment) => {
+        {!props.comments ? <span>There are no comments</span> : props.comments.map((comment) => {
           return(
             <div className='comment-section'>
               <div className="comment">
