@@ -51,17 +51,6 @@ exports.post_login = asyncHandler(async (req, res, next) => {
             return console.log("Incorrect Password");
         };
 
-        // jwt.sign({user: userName}, 'secretkey', (err, token) =>  {
-        //     res.json({
-        //         token: token
-        //     });
-        // });
-
-        // jwt.sign({user: userName}, 'refreshsecretkey', (err, token) =>  {
-        //     res.json({
-        //         token: token
-        //     });
-        // });
         const accessToken = getAccessToken(userName);
         const refreshToken = getRefreshToken(userName);
 
@@ -102,6 +91,12 @@ exports.refresh_token = asyncHandler(async (req, res, next) => {
     //if everything is ok create a new access token, refresh token and send to user
 });
 
+exports.post_logout = asyncHandler(async (req, res, next) => {
+    const refreshToken = req.body.token;
+    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+    res.status(200).json("You have logged out.");
+});
+
 exports.verifyToken = (req, res, next) =>{
     //get auth header value
     const bearerHeader = req.headers['authorization'];
@@ -120,10 +115,4 @@ exports.verifyToken = (req, res, next) =>{
         //forbidden
         res.sendStatus(403);
     };
-
-    exports.post_logout = asyncHandler(async (req, res, next) => {
-        const refreshToken = req.body.token;
-        refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-        res.status(200).json("You have logged out.");
-    });
 };

@@ -22,7 +22,16 @@ function RootLayout() {
     };
   };
 
-  const logout = () => {
+  const logout = async () => {
+    const token = { token: user.refreshToken };
+    fetch("http://localhost:5000/api/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + user.accessToken
+            },
+        body: JSON.stringify(token)
+    });
     setUser(null);
   };
 
