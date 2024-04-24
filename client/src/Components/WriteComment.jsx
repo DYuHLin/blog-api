@@ -15,8 +15,7 @@ function WriteComment(props) {
         fetch(`http://localhost:5000/api/${props.paramId}/create`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + user.accessToken
+            "Content-Type": "application/json"
             },
           body: JSON.stringify(comments)
         }).then(() => {

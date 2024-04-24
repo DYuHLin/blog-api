@@ -22,7 +22,8 @@ function Detail() {
             .catch(err => console.log(err)); 
 
         
-    }, []);
+    }, [comments]);
+    
 const show = (e) => {
   e.preventDefault()
   fetch(`http://localhost:5000/api/${id}/comments`).then(

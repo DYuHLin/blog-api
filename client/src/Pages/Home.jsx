@@ -19,7 +19,7 @@ function Home() {
       <h1>Home</h1>
       {posts.map((blog) => {
         return(
-            <div className="blog">
+            <div className="blog" key={blog._id}>
               <Link to={`${blog._id}`}>
             <h3>{blog.title}</h3>
             <span>{blog.date}</span>

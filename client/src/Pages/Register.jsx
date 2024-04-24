@@ -15,7 +15,7 @@ function Register() {
 
     const register = {name, surname, username, email, password, confirmedPassword};
     
-     fetch("http://localhost:5000/posts/register", {
+     fetch("http://localhost:5000/api/register", {
        method: "POST",
        headers: { "Content-Type": "application/json" },
        body: JSON.stringify(register)
