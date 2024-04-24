@@ -19,7 +19,7 @@ function Comments(props) {
   return (
    
       <div className="blog">
-        {!props.comments ? <span>There are no comments</span> : props.comments.map((comment) => {
+        {props.comments.map((comment) => {
           return(
             <div className='comment-section'>
               <div className="comment">
@@ -27,7 +27,7 @@ function Comments(props) {
                 <span>{comment.date}</span>
                 <p>{comment.user.name}</p> 
               </div>
-              <button onClick={deleteComments(comment._id)}>Delete</button>
+              {/* <button onClick={deleteComments(comment._id)}>Delete</button> */}
             </div>
           )
         })}
