@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
+import {jwtDecode} from 'jwt-decode'
 import UserContext from '../UserContext';
 
 function Comments(props) {
   const { user } = useContext(UserContext);
+  let userDecoded = user === null ? null : jwtDecode(user.accessToken);
 
   const deleteComments = (id) => {
     fetch(`http://localhost:5000/api/${id}/deletecomment`, {
@@ -17,7 +19,6 @@ function Comments(props) {
   };
 
   return (
-   
       <div className="blog">
         {props.comments.map((comment) => {
           return(
@@ -27,10 +28,13 @@ function Comments(props) {
                 <span>{comment.date}</span>
                 <p>{comment.user.name}</p> 
               </div>
-              <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}}>
-                <button>Delete</button> 
-              </form>
-              
+              {
+                 userDecoded === null ?(
+                  ""
+                ) : userDecoded.user._id === comment.user._id ? (
+                  <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}}><button>Delete</button> </form>
+                ) : ""
+              }                        
             </div>
           )
         })}

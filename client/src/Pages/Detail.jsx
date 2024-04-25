@@ -41,7 +41,7 @@ const show = (e) => {
         <h2>{post.title}</h2>
         <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
         <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
-        <WriteComment paramId = {id} post = {post} />
+        <WriteComment paramId = {id} post = {post}/>
         <Comments paramId = {id} post = {post} comments = {comments}/> 
         <button onClick={show}>show</button>
     </section>
