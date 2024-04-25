@@ -27,17 +27,21 @@ function Update() {
     };
 
     const post = {user: decoded.user._id, title: title, content: ContentRef.current.getContent(), published: publishVal};
-  
-    fetch(`http://localhost:5000/api/${id}/update`, {
+
+    try{
+      fetch(`http://localhost:5000/api/${id}/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "authorization": "Bearer " + user.accessToken
         },
       body: JSON.stringify(post)
-    }).then(() => {
-      navigate('/posts');
-    })
+    });
+    }catch(err){
+      console.log(err);
+    };
+    
+    navigate('/posts');
   };
 
   useEffect(() => {

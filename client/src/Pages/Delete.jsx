@@ -14,16 +14,19 @@ function Delete() {
   const handleSubmit = (e) => { 
     e.preventDefault();
     const decoded = jwtDecode(user.accessToken);
-  
-    fetch(`http://localhost:5000/api/${id}/delete`, {
+
+    try{
+      fetch(`http://localhost:5000/api/${id}/delete`, {
       method: "DELETE",
       headers: {
                 "Content-Type": "application/json",
                 "authorization": "Bearer " + user.accessToken
                 },
-    }).then(() => {
-      navigate('/posts');
-    })
+    });
+    }catch(err){
+      console.log(err);
+    };
+    navigate('/posts');
   };
 
   useEffect(() => {

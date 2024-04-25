@@ -24,17 +24,22 @@ function create() {
     };
 
     const post = {user: decoded.user._id, title: title, content: ContentRef.current.getContent(), published: publishVal};
-  
-    fetch('http://localhost:5000/api/create', {
+
+    try{
+      fetch('http://localhost:5000/api/create', {
       method: "POST",
       headers: {
                 "Content-Type": "application/json"
                 },
       body: JSON.stringify(post)
     }).then(() => {
-      navigate('/posts');
       console.log("Posted");
-    })
+    });
+    } catch(err){
+      console.log(err);
+    };
+    
+    navigate('/posts');
   };
 
   return (

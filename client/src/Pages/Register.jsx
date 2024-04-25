@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function Register() {
 
@@ -10,19 +11,25 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const register = {name, surname, username, email, password, confirmedPassword};
-    
-     fetch("http://localhost:5000/api/register", {
+
+    try{
+      fetch("http://localhost:5000/api/register", {
        method: "POST",
        headers: { "Content-Type": "application/json" },
        body: JSON.stringify(register)
      }).then(() => {
       console.log("registered");
-      
      });
+    }catch(err){
+      console.log(err);
+    };
+      navigate("/posts/login");
   };
 
   return (
