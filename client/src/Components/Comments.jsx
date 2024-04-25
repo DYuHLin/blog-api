@@ -27,7 +27,10 @@ function Comments(props) {
                 <span>{comment.date}</span>
                 <p>{comment.user.name}</p> 
               </div>
-              {/* <button onClick={deleteComments(comment._id)}>Delete</button> */}
+              <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}}>
+                <button>Delete</button> 
+              </form>
+              
             </div>
           )
         })}
