@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import '../../assets/App.css'
 import UserContext from '../../UserContext';
@@ -32,8 +32,17 @@ function RootLayout() {
             },
         body: JSON.stringify(token)
     });
-    setUser(null);
+    setUser(false);
   };
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("BLOG_USER");
+    setUser(JSON.parse(data));
+  },[]);
+
+//   useEffect(() => {
+//     window.localStorage.setItem('BLOG_USER', JSON.stringify(user));
+//   }, [user]);
 
   return (
     <div className="root-layout">

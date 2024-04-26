@@ -4,7 +4,7 @@ import UserContext from '../UserContext';
 
 function Comments(props) {
   const { user } = useContext(UserContext);
-  let userDecoded = user === null ? null : jwtDecode(user.accessToken);
+  let userDecoded = user === false ? false : jwtDecode(user.accessToken);
 
   const deleteComments = (id) => {
     fetch(`http://localhost:5000/api/${id}/deletecomment`, {
@@ -29,7 +29,7 @@ function Comments(props) {
                 <p>{comment.user.name}</p> 
               </div>
               {
-                 userDecoded === null ?(
+                 userDecoded === false ?(
                   ""
                 ) : userDecoded.user._id === comment.user._id ? (
                   <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}}><button>Delete</button> </form>

@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {BrowserRouter as Router, Route, Routes, Navigate, Link} from 'react-router-dom'
+import UserContext from '../UserContext';
 
 function Home() {
   const [posts, setPosts] = useState([{}]);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
+    const data = window.localStorage.getItem("BLOG_USER");
+    setUser(JSON.parse(data));
+
     fetch("http://localhost:5000/api").then(
       res => res.json()
     ).then(data => {
