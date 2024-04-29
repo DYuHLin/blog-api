@@ -35,15 +35,6 @@ function RootLayout() {
     setUser(false);
   };
 
-  useEffect(() => {
-    const data = window.localStorage.getItem("BLOG_USER");
-    setUser(JSON.parse(data));
-  },[]);
-
-//   useEffect(() => {
-//     window.localStorage.setItem('BLOG_USER', JSON.stringify(user));
-//   }, [user]);
-
   return (
     <div className="root-layout">
         <header>

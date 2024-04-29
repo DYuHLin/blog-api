@@ -7,9 +7,6 @@ function Home() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    const data = window.localStorage.getItem("BLOG_USER");
-    setUser(JSON.parse(data));
-
     fetch("http://localhost:5000/api").then(
       res => res.json()
     ).then(data => {
@@ -18,6 +15,10 @@ function Home() {
     );
     
   }, []);
+
+  const show = () => {
+    console.log(user)
+  }
 
   return (
     <section>
@@ -33,6 +34,8 @@ function Home() {
           </div>
         )
       })}
+
+      <button onClick={show}>show</button>
     </section>
   )
 }

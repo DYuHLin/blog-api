@@ -16,7 +16,6 @@ function Login() {
     try{
       const res = await axios.post("http://localhost:5000/api/login", {username, password});
       setUser(res.data);
-      // localStorage.setItem('BLOG_USER', JSON.stringify(res.data));
     }catch(err){
       console.log(err);
     };

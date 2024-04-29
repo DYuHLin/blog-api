@@ -1,20 +1,29 @@
 import { createContext, useEffect, useState } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import Login from "./Pages/Login";
 
 const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
     const getInitialState = () => {
-        const localUser = localStorage.getItem("BLOG_USER");
+        const localUser = sessionStorage.getItem("BLOG_USER");
         return localUser ? JSON.parse(localUser) : false;
     };
     const [user, setUser] = useState(getInitialState);
 
+    const ProtectedRoutes = () => {
+
+        return (
+            user === false ? (<Navigate to="/posts/login" />) : user.accessToken ? (<Outlet /> ) : ""
+        )
+    };
+
     useEffect(() => {
-        localStorage.setItem('BLOG_USER', JSON.stringify(user));
+        sessionStorage.setItem('BLOG_USER', JSON.stringify(user));
     }, [user]);
 
     return (
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, ProtectedRoutes}}>
             {children}
         </UserContext.Provider>
     )

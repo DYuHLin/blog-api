@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
@@ -9,8 +9,11 @@ import Delete from './Pages/Delete'
 import Update from './Pages/Update'
 import Home from './Pages/Home'
 import UserBlogs from './Pages/UserBlogs'
+import UserContext from './UserContext'
 
 function Router() {
+
+    const { user, ProtectedRoutes } = useContext(UserContext);
 
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -19,10 +22,13 @@ function Router() {
                 <Route path='/posts/userblogs' element={<UserBlogs />} />
                 <Route path='/posts/login' element={<Login />} />
                 <Route path='/posts/register' element={<Register />} />
-                <Route path='/posts/create' element={<Create />} />
+                <Route element = {<ProtectedRoutes />}>
+                    <Route path='/posts/create' element={<Create />} />
+                    <Route path='/posts/:id/update' element={<Update />} />
+                    <Route path='/posts/:id/delete' element={<Delete />} />
+                </Route>
+                
                 <Route path='/posts/:id' element={<Detail />} />
-                <Route path='/posts/:id/update' element={<Update />} />
-                <Route path='/posts/:id/delete' element={<Delete />} />
             </Route>
         )
 )
