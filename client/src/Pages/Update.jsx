@@ -7,9 +7,15 @@ import axios from 'axios';
 
 function Update() {
   const [title, setTitle] = useState('');
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(false);
 
   const {user} = useContext(UserContext);
+
+  const getUserDecoded = () => {
+    return user === false ? false : jwtDecode(user.accessToken);
+  };
+
+  const [decodedUser, setDecodedUser] = useState(getUserDecoded);
   let { id } = useParams();
 
   const ContentRef = useRef();
@@ -54,6 +60,9 @@ function Update() {
 }, []);
 
   return (
+    !post ? (""): 
+    post.user._id !== decodedUser.user._id ? (<Navigate to="/posts" />) :
+    post.user._id === decodedUser.user._id ? (
       <section>
       <form method="POST" onSubmit={handleSubmit}>
       <label htmlFor="title">Title: </label>
@@ -67,6 +76,8 @@ function Update() {
         <button>Post Blog</button>
       </form>
     </section>
+    ): ""
+      
   ) 
 }
 

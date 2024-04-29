@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 function Detail() {
     let { id } = useParams();
     const { user } = useContext(UserContext);
+    
     const getUserDecoded = () => {
       return user === false ? false : jwtDecode(user.accessToken);
     };
