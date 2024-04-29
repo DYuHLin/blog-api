@@ -19,10 +19,11 @@ function Router() {
         createRoutesFromElements(
             <Route path='/posts' element={<RootLayout />}>
                 <Route index element={<Home />} />
-                <Route path='/posts/userblogs' element={<UserBlogs />} />
                 <Route path='/posts/login' element={<Login />} />
                 <Route path='/posts/register' element={<Register />} />
+
                 <Route element = {<ProtectedRoutes />}>
+                    <Route path='/posts/userblogs' element={<UserBlogs />} />
                     <Route path='/posts/create' element={<Create />} />
                     <Route path='/posts/:id/update' element={<Update />} />
                     <Route path='/posts/:id/delete' element={<Delete />} />

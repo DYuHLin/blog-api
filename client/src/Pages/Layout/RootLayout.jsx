@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import '../../assets/App.css'
-import UserContext from '../../UserContext';
-import axios from 'axios';
+import UserContext from '../../UserContext'
+import axios from 'axios'
 
 function RootLayout() {
 
@@ -60,7 +60,7 @@ function RootLayout() {
 
         <main>
             <Outlet />
-        </main>
+        </main>     
     </div>
   )
 }

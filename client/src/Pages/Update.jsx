@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import {jwtDecode} from 'jwt-decode'
 import UserContext from '../UserContext';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams, Navigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Update() {
@@ -54,7 +54,7 @@ function Update() {
 }, []);
 
   return (
-    <section>
+      <section>
       <form method="POST" onSubmit={handleSubmit}>
       <label htmlFor="title">Title: </label>
         <input type="text" required name='title' id='title' className='title' value={title} onChange={(e) => setTitle(e.target.value)}/>
@@ -67,7 +67,7 @@ function Update() {
         <button>Post Blog</button>
       </form>
     </section>
-  )
+  ) 
 }
 
 export default Update
