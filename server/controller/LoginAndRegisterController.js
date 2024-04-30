@@ -7,26 +7,38 @@ require('dotenv').config();
 
 exports.post_register = asyncHandler(async (req, res, next) => {
     try{
-        bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
-            if(err){
-                return next(err);
-            } else if(req.body.password !== req.body.confirmedPassword){
-                console.log("Password don't match");  
-            } else {
-                const user = new users({
-                    name: req.body.name,
-                    surname: req.body.surname,
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: hashedPassword,
-                });
-
-                await user.save();
-            };
-        });
+        const user = await users.findOne({username: req.body.username}).exec();
+        if(user.username){
+            console.log("name taken");
+        } else {
+            bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
+                if(err){
+                    return next(err);
+                } else if(req.body.password !== req.body.confirmedPassword){
+                    console.log("Password don't match");  
+                } else {
+                    const user = new users({
+                        name: req.body.name,
+                        surname: req.body.surname,
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: hashedPassword,
+                    });
+    
+                    await user.save();
+                };
+            });
+        }
+        
     }catch(err){
         next(err);
     };
+});
+
+exports.getUsers = asyncHandler(async (req, res, next) => {
+    const allUsers = await users.find().exec();
+
+    return res.json(allUsers);
 });
 
 let refreshTokens = [];

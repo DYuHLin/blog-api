@@ -9,5 +9,6 @@ const router = express.Router();
 // });
 
 router.post("/", registerController.post_register);
+router.get("/allusers", registerController.getUsers);
 
 module.exports = router;

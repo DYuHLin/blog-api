@@ -10,6 +10,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [error, setError] = useState("");
+  const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
 
@@ -19,18 +21,37 @@ function Register() {
     const register = {name, surname, username, email, password, confirmedPassword};
 
     try{
-      fetch("http://localhost:5000/api/register", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(register)
-     }).then(() => {
-      console.log("registered");
-     });
+          setError("This username is already taken.");
+          fetch("http://localhost:5000/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(register)
+          }).then(() => {
+            console.log("registered");
+          });
+
+          navigate("/posts/login");
+        
+      
+
     }catch(err){
       console.log(err);
     };
-      navigate("/posts/login");
+      
   };
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/register/allusers").then(
+      res => res.json()
+    ).then(data => {
+      setUsers(data);
+      }
+    );
+  }, []);
+
+  const show = () => {
+    console.log(users);
+  }
 
   return (
     <section>
@@ -40,11 +61,12 @@ function Register() {
         <input type="text" required name='surname' id='surname' className='surname' onChange={(e) => setSurname(e.target.value)} placeholder='Surname'/>
         <input type="text" required name='username' id='username' className='username' onChange={(e) => setUsername(e.target.value)} placeholder='Username'/>
         <input type="email" required name='email' id='email' className='email' onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
-        <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
-        <input type="password" required name='confirmedPassword' id='confirmedPassword' className='confirmedPassword' placeholder='Confirm password' onChange={(e) => setConfirmedPassword(e.target.value)}/>
+        <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password' minLength={6}/>
+        <input type="password" required name='confirmedPassword' id='confirmedPassword' className='confirmedPassword' placeholder='Confirm password' onChange={(e) => setConfirmedPassword(e.target.value)} minLength={6}/>
         <button>Register</button>
         <Link to={"/posts/login"}><p>Login</p></Link>
       </form>
+      <p className="error">{error}</p>
       </section>
   )
 }
