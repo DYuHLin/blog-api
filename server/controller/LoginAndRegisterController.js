@@ -7,15 +7,17 @@ require('dotenv').config();
 
 exports.post_register = asyncHandler(async (req, res, next) => {
     try{
-        const user = await users.findOne({username: req.body.username}).exec();
-        if(user.username){
+        const user = await users.findOne({username: req.body.username});
+        if(user){
             console.log("name taken");
-        } else {
+            return res.json("failed");
+        }; 
+        if(!user){
             bcrypt.hash(req.body.password, 10, async(err, hashedPassword) => {
                 if(err){
                     return next(err);
                 } else if(req.body.password !== req.body.confirmedPassword){
-                    console.log("Password don't match");  
+                    return res.json("match"); 
                 } else {
                     const user = new users({
                         name: req.body.name,
@@ -26,10 +28,10 @@ exports.post_register = asyncHandler(async (req, res, next) => {
                     });
     
                     await user.save();
+                    return res.json("ok");
                 };
             });
-        }
-        
+        };
     }catch(err){
         next(err);
     };
