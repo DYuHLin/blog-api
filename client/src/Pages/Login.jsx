@@ -6,6 +6,7 @@ import {Link, useNavigate} from 'react-router-dom';
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const {setUser} = useContext(UserContext);
 
@@ -15,7 +16,15 @@ function Login() {
     e.preventDefault();
     try{
       const res = await axios.post("http://localhost:5000/api/login", {username, password});
-      setUser(res.data);
+      if(res.data === "name"){
+        setError("This username does not exist.");
+      } else if(res.data === "password"){
+        setError("Your password is incorrect");
+      } else {
+        setUser(res.data);
+        navigate('/posts');
+      };
+      
     }catch(err){
       console.log(err);
     };
@@ -26,7 +35,7 @@ function Login() {
     // }).then(() => {
     //   console.log("Logged In");
     // });
-    navigate('/posts');
+    // navigate('/posts');
   };
 
   return (
@@ -37,6 +46,7 @@ function Login() {
           <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
           <button>Login</button>
         </form>
+        <p className="error">{error}</p>
         <Link to={"/posts/register"}><p>Register</p></Link>
         </section>
   )

@@ -58,11 +58,13 @@ exports.post_login = asyncHandler(async (req, res, next) => {
         const userName = await users.findOne({username: req.body.username});
         if(!userName){
             console.log("Incorrect username");
+            return res.json("name");
         };
 
         const match = await bcrypt.compare(req.body.password, userName.password);
         if(!match){
-            return console.log("Incorrect Password");
+            console.log("Incorrect Password");
+            return res.json("password");
         };
 
         const accessToken = getAccessToken(userName);
