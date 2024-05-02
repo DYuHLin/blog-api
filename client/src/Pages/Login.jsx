@@ -48,7 +48,7 @@ function Login() {
         </form>
         <p className="error">{error}</p>
         <Link to={"/posts/register"}><p>Register</p></Link>
-        </section>
+      </section>
   )
 }
 

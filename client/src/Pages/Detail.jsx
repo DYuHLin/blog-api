@@ -19,13 +19,15 @@ function Detail() {
     const [decodedUser, setDecodedUser] = useState(getUserDecoded);
 
     useEffect(() => {
-        axios({method:'GET', url:`http://localhost:5000/api/${id}`})
-            .then(res => setPost(res.data))
-            .catch(err => console.log(err));  
-            
-        axios({method:'GET', url:`http://localhost:5000/api/${id}/comments`})
-            .then(res => setComments(res.data))
-            .catch(err => console.log(err)); 
+      axios({method:'GET', url:`http://localhost:5000/api/${id}`})
+        .then(res => setPost(res.data))
+        .catch(err => console.log(err)); 
+    }, []);
+
+    useEffect(() => {     
+      axios({method:'GET', url:`http://localhost:5000/api/${id}/comments`})
+        .then(res => setComments(res.data))
+        .catch(err => console.log(err)); 
 
         
     }, [comments]);
@@ -43,6 +45,7 @@ const show = (e) => {
     <section>
         <h1>Blog Details</h1>
         {!post ? (""):
+        !decodedUser ? (""):
         post.user._id === decodedUser.user._id ? (
           <>
             <Link to={"update"}><p>Update</p></Link>
@@ -54,7 +57,10 @@ const show = (e) => {
         <h2>{post.title}</h2>
         <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
         <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
-        <WriteComment paramId = {id} post = {post}/>
+        {
+          !decodedUser ? <p>Sign in to comment</p> : <WriteComment paramId = {id} post = {post}/>
+        }
+        
         <Comments paramId = {id} post = {post} comments = {comments}/> 
         <button onClick={show}>show</button>
     </section>
