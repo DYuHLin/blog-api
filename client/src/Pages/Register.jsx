@@ -44,10 +44,6 @@ function Register() {
       
   };
 
-  const show = () => {
-    console.log(error);
-  }
-
   return (
     <section>
       <h1>register</h1>
@@ -59,10 +55,10 @@ function Register() {
         <input type="password" required name='password' id='password' className='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password' minLength={6}/>
         <input type="password" required name='confirmedPassword' id='confirmedPassword' className='confirmedPassword' placeholder='Confirm password' onChange={(e) => setConfirmedPassword(e.target.value)} minLength={6}/>
         <button>Register</button>
-        <Link to={"/posts/login"}><p>Login</p></Link>
+        
       </form>
       <p className="error">{error}</p>
-      <button onClick={show}>check</button>
+      <Link to={"/posts/login"} className="link">Login</Link>
       </section>
   )
 }

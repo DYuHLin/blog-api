@@ -38,22 +38,22 @@ function RootLayout() {
   return (
     <div className="root-layout">
         <header>
-            <h3 className='header-title'>Blog</h3>
+            <p className='header-title'>Blog</p>
 
             <div className="header-links">
-                <NavLink to="/posts">Home</NavLink>
+                <NavLink to="/posts" className="head-link">Home</NavLink>
                 
                 {
-                    user ?  <NavLink to="/posts/create">Create</NavLink> : ''
+                    user ?  <NavLink to="/posts/create" className="head-link">Create</NavLink> : ''
                 }
                 {
-                    user ?  <button onClick={logout}>Logout</button> : ''
+                    user ?  <a onClick={logout} className='head-link'>Logout</a> : ''
                 }
                 {
-                    user ?  <NavLink to="/posts/userblogs">Your blogs</NavLink> : ''
+                    user ?  <NavLink to="/posts/userblogs" className="head-link">Your blogs</NavLink> : ''
                 }
                 {
-                    !user ?  <NavLink to="/posts/login">Login</NavLink> : ''
+                    !user ?  <NavLink to="/posts/login" className="head-link">Login</NavLink> : ''
                 }
             </div>
         </header>

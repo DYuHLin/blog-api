@@ -47,7 +47,7 @@ function Login() {
           <button>Login</button>
         </form>
         <p className="error">{error}</p>
-        <Link to={"/posts/register"}><p>Register</p></Link>
+        <Link to={"/posts/register"} className="link">Register</Link>
       </section>
   )
 }

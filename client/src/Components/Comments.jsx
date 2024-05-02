@@ -23,7 +23,7 @@ function Comments(props) {
         {props.comments.map((comment) => {
           return(
             <div className='comment-section'>
-              <div className="comment">
+              <div className="comment2">
                 <h3>{comment.content}</h3>
                 <span>{comment.date}</span>
                 <p>{comment.user.name}</p> 

@@ -31,38 +31,26 @@ function Detail() {
 
         
     }, [comments]);
-    
-const show = (e) => {
-  e.preventDefault()
-  fetch(`http://localhost:5000/api/${id}/comments`).then(
-    res => res.json()
-    ).then(data => {
-     console.log(data);
-      }
-    );
-}
+
   return (
     <section>
-        <h1>Blog Details</h1>
+        <h1>{post.title}</h1>
         {!post ? (""):
         !decodedUser ? (""):
         post.user._id === decodedUser.user._id ? (
-          <>
-            <Link to={"update"}><p>Update</p></Link>
-            <Link to={"delete"}><p>Delete</p></Link>
-          </>
+          <div className='detail-link'>
+            <Link to={"update"} className="link-detail">Update</Link>
+            <Link to={"delete"} className="link-detail">Delete</Link>
+          </div>
         ) : ""
       }
-        
-        <h2>{post.title}</h2>
         <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
-        <p>{post.published === false ? 'Unpublished' : 'Published'}</p>
+        <p className='published'>{post.published === false ? 'Unpublished' : 'Published'}</p>
         {
-          !decodedUser ? <p>Sign in to comment</p> : <WriteComment paramId = {id} post = {post}/>
+          !decodedUser ? <p className='sign-in-message'>Sign in to comment</p> : <WriteComment paramId = {id} post = {post}/>
         }
         
         <Comments paramId = {id} post = {post} comments = {comments}/> 
-        <button onClick={show}>show</button>
     </section>
   )
 }

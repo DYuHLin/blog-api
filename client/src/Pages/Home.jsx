@@ -16,26 +16,20 @@ function Home() {
     
   }, []);
 
-  const show = () => {
-    console.log(user)
-  }
-
   return (
     <section>
-      <h1>Home</h1>
+      <h1 className='home-title'>Welcome to my blog site</h1>
       {posts.map((blog) => {
         return(
-            <div className="blog" key={blog._id}>
-              <Link to={`${blog._id}`}>
-            <h3>{blog.title}</h3>
-            <span>{blog.date}</span>
+            <div className="blog2" key={blog._id}>
+              <Link to={`${blog._id}`} className="blog-title-home">
+            <h3 className="blog-title-home">{blog.title}</h3>
+            <span className="blog-title-home">{blog.date}</span>
             {/* <p>{blog.user.username}</p>  */}
             </Link>
           </div>
         )
       })}
-
-      <button onClick={show}>show</button>
     </section>
   )
 }

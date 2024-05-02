@@ -25,10 +25,10 @@ function UserBlogs() {
         return(
           
             <div className="blog">
-              <Link to={`/posts/${blog._id}`}>
-              <h3>{blog.title}</h3>
-              <span>{blog.date}</span>
-              <p>{blog.published === false ? 'Unpublished' : 'Published'}</p>
+              <Link to={`/posts/${blog._id}`} className="blog-title-home">
+              <h3 className="blog-title-home">{blog.title}</h3>
+              <span className="blog-title-home">{blog.date}</span>
+              <p className="blog-title-home">{blog.published === false ? 'Unpublished' : 'Published'}</p>
               {/* <p>{blog.user.name}</p> */}
             </Link>
           </div>
