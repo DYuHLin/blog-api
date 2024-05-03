@@ -9,5 +9,6 @@ const router = express.Router();
 // });
 
 router.post("/", registerController.verifyToken, registerController.post_logout);
+router.post("/delete", registerController.verifyToken, registerController.post_delete);
 
 module.exports = router;

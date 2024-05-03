@@ -1,12 +1,18 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import '../../assets/App.css'
 import UserContext from '../../UserContext'
 import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
 
 function RootLayout() {
 
   const { user, setUser } = useContext(UserContext);
+  const getUserDecoded = () => {
+    return user === false ? false : jwtDecode(user.accessToken);
+  };
+
+  const [decodedUser, setDecodedUser] = useState(getUserDecoded);
 
   const refreshToken = async () => {
     try{
@@ -50,7 +56,7 @@ function RootLayout() {
                     user ?  <a onClick={logout} className='head-link'>Logout</a> : ''
                 }
                 {
-                    user ?  <NavLink to="/posts/userblogs" className="head-link">Your blogs</NavLink> : ''
+                    user ?  <NavLink to="/posts/userblogs" className="head-link">{decodedUser.user.username}</NavLink> : ''
                 }
                 {
                     !user ?  <NavLink to="/posts/login" className="head-link">Login</NavLink> : ''

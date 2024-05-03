@@ -21,13 +21,13 @@ function Home() {
       <h1 className='home-title'>Welcome to my blog site</h1>
       {posts.map((blog) => {
         return(
-            <div className="blog2" key={blog._id}>
-              <Link to={`${blog._id}`} className="blog-title-home">
+          <Link to={`${blog._id}`} className="blog blog-title-home">
+              
             <h3 className="blog-title-home">{blog.title}</h3>
             <span className="blog-title-home">{blog.date}</span>
             {/* <p>{blog.user.username}</p>  */}
-            </Link>
-          </div>
+            
+          </Link>
         )
       })}
     </section>

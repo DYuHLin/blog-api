@@ -5,7 +5,38 @@ import { jwtDecode } from 'jwt-decode';
 
 function UserBlogs() {
     const [posts, setPosts] = useState([{}]);
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+
+    const getUserDecoded = () => {
+      return user === false ? false : jwtDecode(user.accessToken);
+    };
+  
+    const [decodedUser, setDecodedUser] = useState(getUserDecoded);
+
+    const logout = async () => {
+      const token = { token: user.refreshToken };
+      fetch("http://localhost:5000/api/logout", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "authorization": "Bearer " + user.accessToken
+              },
+          body: JSON.stringify(token)
+      });
+      setUser(false);
+    };
+
+    const deleteUser = () => {
+      const userId = {id: decodedUser.user._id};
+      fetch("http://localhost:5000/api/logout/delete", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "authorization": "Bearer " + user.accessToken
+              },
+          body: JSON.stringify(userId)
+      });
+    };
 
     useEffect(() => {
         const decoded = jwtDecode(user.accessToken);
@@ -20,19 +51,19 @@ function UserBlogs() {
 
   return (
     <section>
-      <h1>Your Blogs</h1>
+      <h1>{decodedUser.user.username}</h1>
+      <div className='detail-link'>
+            <a onClick={logout} className='head-link'>Logout</a>
+            <a onClick={deleteUser} className='head-link'>Delete account</a>
+      </div>
       {posts.map((blog) => {
         return(
-          
-            <div className="blog">
-              <Link to={`/posts/${blog._id}`} className="blog-title-home">
-              <h3 className="blog-title-home">{blog.title}</h3>
-              <span className="blog-title-home">{blog.date}</span>
-              <p className="blog-title-home">{blog.published === false ? 'Unpublished' : 'Published'}</p>
-              {/* <p>{blog.user.name}</p> */}
-            </Link>
-          </div>
-        
+          <Link to={`/posts/${blog._id}`} className="blog blog-title-home">    
+            <h3 className="blog-title-home">{blog.title}</h3>
+            <span className="blog-title-home">{blog.date}</span>
+            <p className="blog-title-home">{blog.published === false ? 'Unpublished' : 'Published'}</p>
+            {/* <p>{blog.user.name}</p> */}
+          </Link>
         )
       })}
     </section>

@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const {body, ValidationResult} = require('express-validator');
 const users = require('../models/users');
+const comments = require('../models/comments');
+const posts = require('../models/posts');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
@@ -80,6 +82,14 @@ exports.post_login = asyncHandler(async (req, res, next) => {
     }catch(err){
         console.log(err);
     };
+});
+
+exports.post_delete = asyncHandler(async (req, res, next) => {
+    const user = await users.findById(req.body.id).exec();
+
+    await users.findByIdAndDelete(req.body.id);
+    await posts.deleteMany({user: req.body.id});
+    await comments.deleteMany({user: req.body.id});
 });
 
 exports.refresh_token = asyncHandler(async (req, res, next) => {
