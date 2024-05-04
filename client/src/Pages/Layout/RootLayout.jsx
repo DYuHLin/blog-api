@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import '../../assets/App.css'
 import UserContext from '../../UserContext'
 import axios from 'axios'
@@ -8,11 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 function RootLayout() {
 
   const { user, setUser } = useContext(UserContext);
-  const getUserDecoded = () => {
-    return user === false ? false : jwtDecode(user.accessToken);
-  };
-
-  const [decodedUser, setDecodedUser] = useState(getUserDecoded);
+  const navigate = useNavigate();
 
   const refreshToken = async () => {
     try{
@@ -22,11 +18,29 @@ function RootLayout() {
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
         });
-
+        return res.data;
     } catch(err){
         console.log(err);
     };
   };
+
+  const axiosJwt = axios.create();
+
+  axiosJwt.interceptors.request.use(
+    async (config) => {
+        let currentDate = new Date();
+        const decodedToken = jwtDecode(user.accessToken);
+        if(decodedToken.exp * 1000 < currentDate.getTime()){
+            const data = await refreshToken();
+            config.headers['authorization'] = "Bearer " + data.accessToken;
+            // setUser(false);
+            // navigate("/posts/login");
+        };
+        return config;
+    }, (error) => {
+        return Promise.reject(error);
+    }
+  );
 
   const logout = async () => {
     const token = { token: user.refreshToken };
@@ -44,23 +58,24 @@ function RootLayout() {
   return (
     <div className="root-layout">
         <header>
-            <p className='header-title'>Blog</p>
+            <p className='header-title'><NavLink to="/posts" className="head-link">Blog</NavLink></p>
 
             <div className="header-links">
-                <NavLink to="/posts" className="head-link">Home</NavLink>
+                <ul>
+                    {
+                        user ?  <li><NavLink to="/posts/create" className="head-link">Create</NavLink></li> : ''
+                    }
+                    {
+                        user ?  <li><a onClick={logout} className='head-link'>Logout</a></li> : ''
+                    }
+                    {
+                        user ?  <li><NavLink to="/posts/userblogs" className="head-link">{jwtDecode(user.accessToken).user.username}</NavLink></li> : ''
+                    }
+                    {
+                        !user ?  <li><NavLink to="/posts/login" className="head-link">Login</NavLink></li> : ''
+                    }
+                </ul>
                 
-                {
-                    user ?  <NavLink to="/posts/create" className="head-link">Create</NavLink> : ''
-                }
-                {
-                    user ?  <a onClick={logout} className='head-link'>Logout</a> : ''
-                }
-                {
-                    user ?  <NavLink to="/posts/userblogs" className="head-link">{decodedUser.user.username}</NavLink> : ''
-                }
-                {
-                    !user ?  <NavLink to="/posts/login" className="head-link">Login</NavLink> : ''
-                }
             </div>
         </header>
 

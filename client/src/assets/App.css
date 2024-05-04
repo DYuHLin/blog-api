@@ -84,12 +84,16 @@ section{
 
 .blog2{
     padding: 24px;
-    width: 35%;
-    height: 35px;
+    width: 70%;
+    height: auto;
     margin-bottom: 28px;
     box-shadow: 5px 5px 5px 5px hsl(0, 0%, 80%);
     transition: all 0.3s;
     background-color: white;
+}
+
+h3, span, p{
+    overflow-wrap: break-word;
 }
 
 .comment {
@@ -170,6 +174,17 @@ button:hover {
     margin-top: 20px;
     margin-bottom: 20px;
     color: red;
+}
+
+ul{
+    display: flex;
+    gap: 22px;
+    padding-right: 10px;
+    list-style: none;
+}
+
+.hidden{
+    visibility: hidden;
 }
 
 body::-webkit-scrollbar {

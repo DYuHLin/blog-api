@@ -44,7 +44,7 @@ function Detail() {
           </div>
         ) : ""
       }
-        <div className='blog' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
+        <div className='blog2' id='blog' dangerouslySetInnerHTML={ {__html: post.content} } />
         <p className='published'>{post.published === false ? 'Unpublished' : 'Published'}</p>
         {
           !decodedUser ? <p className='sign-in-message'>Sign in to comment</p> : <WriteComment paramId = {id} post = {post}/>

@@ -25,7 +25,7 @@ function Comments(props) {
             <div className='comment-section'>
               <div className="comment2">
                 <h3>{comment.content}</h3>
-                <span>{comment.date}</span>
+                <span>{new Date(comment.date).toLocaleString()}</span>
                 <p>{comment.user.name}</p> 
               </div>
               {
