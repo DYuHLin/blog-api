@@ -65,6 +65,7 @@ function UserBlogs() {
         return(
           <Link to={`/posts/${blog._id}`} className="blog blog-title-home">    
             <h3 className="blog-title-home">{blog.title}</h3>
+            <br/>
             <span className="blog-title-home">{new Date(blog.date).toLocaleString()}</span>
             <p className="blog-title-home">{blog.published === false ? 'Unpublished' : 'Published'}</p>
             {/* <p>{blog.user.name}</p> */}

@@ -24,6 +24,7 @@ function Home() {
           <Link to={`${blog._id}`} className="blog blog-title-home">
               
             <h3 className="blog-title-home">{blog.title}</h3>
+            <br/>
             <span className="blog-title-home">{new Date(blog.date).toLocaleString()}</span>
             {/* <p>{blog.user.username}</p>  */}
             

@@ -32,7 +32,7 @@ function Comments(props) {
                  userDecoded === false ?(
                   ""
                 ) : userDecoded.user._id === comment.user._id ? (
-                  <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}}><button>Delete</button> </form>
+                  <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}} className='delete-form'><button className='delete-btn'><i class='bx bx-trash'></i></button> </form>
                 ) : ""
               }                        
             </div>

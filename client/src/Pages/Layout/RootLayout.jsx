@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 function RootLayout() {
 
   const { user, setUser } = useContext(UserContext);
+  const [menu, setMenu] = useState("")
   const navigate = useNavigate();
 
   const refreshToken = async () => {
@@ -55,28 +56,44 @@ function RootLayout() {
     setUser(false);
   };
 
+  const toggleHamburger = () => {
+    if(menu === ""){
+        setMenu("active");
+    } else if(menu === "active"){
+        setMenu("");
+    };
+  };
+
   return (
     <div className="root-layout">
         <header>
+        <nav>
             <p className='header-title'><NavLink to="/posts" className="head-link">Blog</NavLink></p>
 
-            <div className="header-links">
-                <ul>
+
+                <ul className={`${menu}`}>
                     {
-                        user ?  <li><NavLink to="/posts/create" className="head-link">Create</NavLink></li> : ''
+                        user ?  <li onClick={() => setMenu("")}><NavLink to="/posts/create" className="head-link">Create</NavLink></li> : ''
                     }
                     {
-                        user ?  <li><a onClick={logout} className='head-link'>Logout</a></li> : ''
+                        user ?  <li onClick={() => setMenu("")}><a onClick={logout} className='head-link'>Logout</a></li> : ''
                     }
                     {
-                        user ?  <li><NavLink to="/posts/userblogs" className="head-link">{jwtDecode(user.accessToken).user.username}</NavLink></li> : ''
+                        user ?  <li onClick={() => setMenu("")}><NavLink to="/posts/userblogs" className="head-link">{jwtDecode(user.accessToken).user.username}</NavLink></li> : ''
                     }
                     {
-                        !user ?  <li><NavLink to="/posts/login" className="head-link">Login</NavLink></li> : ''
+                        !user ?  <li onClick={() => setMenu("")}><NavLink to="/posts/login" className="head-link">Login</NavLink></li> : ''
                     }
                 </ul>
                 
+
+
+            <div className={`menu-btn ${menu}`} onClick={toggleHamburger}>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
             </div>
+            </nav>
         </header>
 
         <main>

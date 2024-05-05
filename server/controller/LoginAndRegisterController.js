@@ -48,7 +48,7 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 let refreshTokens = [];
 
 const getAccessToken = (user) => {
-    return jwt.sign({user}, 'secretkey', {expiresIn: '10s'});
+    return jwt.sign({user}, 'secretkey', {expiresIn: '10h'});
 };
 
 const getRefreshToken = (user) => {
