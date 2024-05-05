@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Routes, Navigate, Link} from 'react-rout
 import UserContext from '../UserContext';
 
 function Home() {
-  const [posts, setPosts] = useState([{}]);
+  const [posts, setPosts] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -16,21 +16,27 @@ function Home() {
     
   }, []);
 
+  const show = () => {
+    console.log(posts)
+  }
+
   return (
     <section>
       <h1 className='home-title'>Welcome to my blog site</h1>
-      {posts.map((blog) => {
+      {posts === false ? <p>There are no posts</p> :
+      posts.map((blog) => {
         return(
-          <Link to={`${blog._id}`} className="blog blog-title-home">
+          <Link key={blog._id} to={`${blog._id}`} className="blog blog-title-home">
               
             <h3 className="blog-title-home">{blog.title}</h3>
             <br/>
             <span className="blog-title-home">{new Date(blog.date).toLocaleString()}</span>
-            {/* <p>{blog.user.username}</p>  */}
+            <p>{blog.user.username}</p>   
             
           </Link>
         )
       })}
+      <button onClick={show}>show</button>
     </section>
   )
 }

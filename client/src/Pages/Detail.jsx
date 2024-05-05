@@ -35,6 +35,7 @@ function Detail() {
   return (
     <section>
         <h1>{post.title}</h1>
+        <p>{post === false ? "" : post.user.username}</p> 
         {!post ? (""):
         !decodedUser ? (""):
         post.user._id === decodedUser.user._id ? (

@@ -22,7 +22,7 @@ function Comments(props) {
       <div className="blog">
         {props.comments.map((comment) => {
           return(
-            <div className='comment-section'>
+            <div className='comment-section' key={comment._id}>
               <div className="comment2">
                 <h3>{comment.content}</h3>
                 <span>{new Date(comment.date).toLocaleString()}</span>
@@ -32,7 +32,7 @@ function Comments(props) {
                  userDecoded === false ?(
                   ""
                 ) : userDecoded.user._id === comment.user._id ? (
-                  <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}} className='delete-form'><button className='delete-btn'><i class='bx bx-trash'></i></button> </form>
+                  <form method="DELETE" onSubmit={e =>  {e.preventDefault(); deleteComments(comment._id)}} className='delete-form'><button className='delete-btn'><i className='bx bx-trash'></i></button> </form>
                 ) : ""
               }                        
             </div>
