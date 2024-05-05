@@ -11,13 +11,14 @@ const login = require("./routes/login");
 const logout = require("./routes/logout");
 const post = require("./routes/post");
 const comment = require("./routes/comments");
+require('dotenv').config();
 
 const app = express();
 
 // passport.use(jwtStrategry);
 
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://dyhlin2000:damian1216@cluster0.m0q0vry.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URL;
 
 app.use(cors());
 app.use(express.json());
@@ -45,4 +46,4 @@ app.use("/api", post);
 app.use("/api", comment);
 
 
-app.listen(5000, () => console.log("Listening on port 5000"));
+app.listen(process.env.PORT, () => console.log("Listening on port 5000"));

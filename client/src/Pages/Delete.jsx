@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {jwtDecode} from 'jwt-decode'
-import UserContext from '../UserContext';
-import {useNavigate, useParams, Navigate} from 'react-router-dom';
-import axios from 'axios';
+import UserContext from '../UserContext'
+import {useNavigate, useParams, Navigate} from 'react-router-dom'
+import axios from 'axios'
 
 function Delete() {
   const [post, setPost] = useState(false);
@@ -23,8 +23,7 @@ function Delete() {
     const decoded = jwtDecode(user.accessToken);
 
     try{
-      fetch(`http://localhost:5000/api/${id}/delete`, {
-      method: "DELETE",
+      axios.delete(`http://localhost:5000/api/${id}/delete`, {
       headers: {
                 "Content-Type": "application/json",
                 "authorization": "Bearer " + user.accessToken

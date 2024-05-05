@@ -15,7 +15,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post("http://localhost:5000/api/login", {username, password});
+      const res = await axios.post("http://localhost:5000/api/login", {username, password}, {headers: { "Content-Type": "application/json" }});
       if(res.data === "name"){
         setError("This username does not exist.");
       } else if(res.data === "password"){
@@ -28,14 +28,6 @@ function Login() {
     }catch(err){
       console.log(err);
     };
-    // fetch("http://localhost:5000/posts/login", {
-    //   method: "POST",
-    //   headers: {"content-Type": "application/json"},
-    //   body: JSON.stringify(login)
-    // }).then(() => {
-    //   console.log("Logged In");
-    // });
-    // navigate('/posts');
   };
 
   return (

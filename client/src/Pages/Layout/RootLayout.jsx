@@ -34,8 +34,6 @@ function RootLayout() {
         if(decodedToken.exp * 1000 < currentDate.getTime()){
             const data = await refreshToken();
             config.headers['authorization'] = "Bearer " + data.accessToken;
-            // setUser(false);
-            // navigate("/posts/login");
         };
         return config;
     }, (error) => {
@@ -45,13 +43,11 @@ function RootLayout() {
 
   const logout = async () => {
     const token = { token: user.refreshToken };
-    fetch("http://localhost:5000/api/logout", {
-        method: "POST",
+    axios.post("http://localhost:5000/api/logout", token, {
         headers: {
             "Content-Type": "application/json",
             "authorization": "Bearer " + user.accessToken
             },
-        body: JSON.stringify(token)
     });
     setUser(false);
   };
@@ -69,8 +65,6 @@ function RootLayout() {
         <header>
         <nav>
             <p className='header-title'><NavLink to="/posts" className="head-link">Blog</NavLink></p>
-
-
                 <ul className={`${menu}`}>
                     {
                         user ?  <li onClick={() => setMenu("")}><NavLink to="/posts/create" className="head-link">Create</NavLink></li> : ''
@@ -85,9 +79,6 @@ function RootLayout() {
                         !user ?  <li onClick={() => setMenu("")}><NavLink to="/posts/login" className="head-link">Login</NavLink></li> : ''
                     }
                 </ul>
-                
-
-
             <div className={`menu-btn ${menu}`} onClick={toggleHamburger}>
                 <span className="bar"></span>
                 <span className="bar"></span>

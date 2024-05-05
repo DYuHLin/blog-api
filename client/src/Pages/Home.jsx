@@ -1,24 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 import {BrowserRouter as Router, Route, Routes, Navigate, Link} from 'react-router-dom'
 import UserContext from '../UserContext';
+import axios from 'axios';
 
 function Home() {
   const [posts, setPosts] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api").then(
-      res => res.json()
-    ).then(data => {
-      setPosts(data);
-      }
-    );
+    axios({method:'GET', url:"http://localhost:5000/api"}, {headers: { "Content-Type": "application/json" }})
+        .then(res => {
+          setPosts(res.data);
+        })
+        .catch(err => console.log(err));  
     
   }, []);
-
-  const show = () => {
-    console.log(posts)
-  }
 
   return (
     <section>
@@ -36,7 +32,6 @@ function Home() {
           </Link>
         )
       })}
-      <button onClick={show}>show</button>
     </section>
   )
 }

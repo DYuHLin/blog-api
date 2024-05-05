@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import UserContext from '../UserContext';
 import axios from 'axios';
 import WriteComment from '../Components/WriteComment';
@@ -19,13 +19,13 @@ function Detail() {
     const [decodedUser, setDecodedUser] = useState(getUserDecoded);
 
     useEffect(() => {
-      axios({method:'GET', url:`http://localhost:5000/api/${id}`})
+      axios({method:'GET', url:`http://localhost:5000/api/${id}`}, {headers: { "Content-Type": "application/json"}})
         .then(res => setPost(res.data))
         .catch(err => console.log(err)); 
     }, []);
 
     useEffect(() => {     
-      axios({method:'GET', url:`http://localhost:5000/api/${id}/comments`})
+      axios({method:'GET', url:`http://localhost:5000/api/${id}/comments`}, {headers: { "Content-Type": "application/json"}})
         .then(res => setComments(res.data))
         .catch(err => console.log(err)); 
 

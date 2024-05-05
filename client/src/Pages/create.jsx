@@ -3,6 +3,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import {jwtDecode} from 'jwt-decode'
 import UserContext from '../UserContext';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
 
 function create() {
   const [title, setTitle] = useState('');
@@ -26,20 +27,15 @@ function create() {
     const post = {user: decoded.user._id, title: title, content: ContentRef.current.getContent(), published: publishVal};
 
     try{
-      fetch('http://localhost:5000/api/create', {
-      method: "POST",
+      axios.post('http://localhost:5000/api/create', post, {
       headers: {
                 "Content-Type": "application/json",
                 "authorization": "Bearer " + user.accessToken
-                },
-      body: JSON.stringify(post)
-    }).then(() => {
-      console.log("Posted");
-    });
+                }
+    })
     } catch(err){
       console.log(err);
-    };
-    
+    }; 
     navigate('/posts');
   };
 

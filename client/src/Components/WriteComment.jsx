@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import UserContext from '../UserContext';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 function WriteComment(props) {
     const { user } = useContext(UserContext);
@@ -13,13 +14,11 @@ function WriteComment(props) {
         const comments = {user: decoded.user._id, post: props.post._id, content: comment};
 
         try{
-          fetch(`http://localhost:5000/api/${props.paramId}/create`, {
-          method: "POST",
+          axios.post(`http://localhost:5000/api/${props.paramId}/create`, comments, {
           headers: {
             "Content-Type": "application/json",
             "authorization": "Bearer " + user.accessToken
             },
-          body: JSON.stringify(comments)
         });
         }catch(err){
           console.log(err);

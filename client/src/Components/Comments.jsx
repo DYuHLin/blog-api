@@ -1,21 +1,23 @@
-import React, { useContext } from 'react'
-import {jwtDecode} from 'jwt-decode'
+import React, { useContext } from 'react';
+import {jwtDecode} from 'jwt-decode';
 import UserContext from '../UserContext';
+import axios from 'axios';
 
 function Comments(props) {
   const { user } = useContext(UserContext);
   let userDecoded = user === false ? false : jwtDecode(user.accessToken);
 
   const deleteComments = (id) => {
-    fetch(`http://localhost:5000/api/${id}/deletecomment`, {
-      method: "DELETE",
+    try{
+      axios.delete(`http://localhost:5000/api/${id}/deletecomment`, {
       headers: {
         "Content-Type": "application/json",
         "authorization": "Bearer " + user.accessToken
         },
-    }).then(() => {
-      navigate('/posts');
-    })
+    });
+    }catch(err){
+      console.log(err);
+    };
   };
 
   return (

@@ -50,7 +50,7 @@ exports.update_post = asyncHandler(async (req, res, next) => {
     if(!errors.isEmpty()){
         return console.log(errors);
     } else {
-        await posts.findByIdAndUpdate(req.params.id, post, {});
+        return await posts.findByIdAndUpdate(req.params.id, post, {});
     };
 });
 

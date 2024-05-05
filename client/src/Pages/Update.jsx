@@ -35,13 +35,11 @@ function Update() {
     const post = {user: decoded.user._id, title: title, content: ContentRef.current.getContent(), published: publishVal};
 
     try{
-      fetch(`http://localhost:5000/api/${id}/update`, {
-      method: "PUT",
+      axios.put(`http://localhost:5000/api/${id}/update`, post, {
       headers: {
         "Content-Type": "application/json",
         "authorization": "Bearer " + user.accessToken
         },
-      body: JSON.stringify(post)
     });
     }catch(err){
       console.log(err);
@@ -51,7 +49,7 @@ function Update() {
   };
 
   useEffect(() => {
-    axios({method:'GET', url:`http://localhost:5000/api/${id}`})
+    axios({method:'GET', url:`http://localhost:5000/api/${id}`}, {headers: { "Content-Type": "application/json", "authorization": "Bearer " + user.accessToken }})
         .then(res => {
           setPost(res.data);
           setTitle(res.data.title)

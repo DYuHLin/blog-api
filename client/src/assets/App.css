@@ -68,6 +68,14 @@ h1{
     color: black;
 }
 
+.head-link2{
+    font-size: 22px;
+    font-style: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: blue;
+}
+
 .header-links {
     display: flex;
     gap: 22px;
