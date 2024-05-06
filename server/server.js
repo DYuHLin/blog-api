@@ -11,6 +11,7 @@ const login = require("./routes/login");
 const logout = require("./routes/logout");
 const post = require("./routes/post");
 const comment = require("./routes/comments");
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(session({secret: "cats", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "dist")));
 
 async function main(){
     mongoose.connect(mongoDB);

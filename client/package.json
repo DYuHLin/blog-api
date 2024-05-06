@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://blog-api-wzdo.onrender.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -29,6 +30,5 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "vite": "^5.1.6"
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }
