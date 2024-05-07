@@ -38,7 +38,7 @@ function Update() {
     const post = {user: decoded.user._id, title: title, content: ContentRef.current.getContent(), published: publishVal};
 
     try{
-      axios.put(`/api/${id}/update`, post, {
+      axios.put(`${import.meta.env.VITE_URI}/api/${id}/update`, post, {
       headers: {
         "Content-Type": "application/json",
         "authorization": "Bearer " + user.accessToken
@@ -53,7 +53,7 @@ function Update() {
   };
 
   useEffect(() => {
-    axios({method:'GET', url:`/api/${id}`}, {headers: { "Content-Type": "application/json", "authorization": "Bearer " + user.accessToken }})
+    axios({method:'GET', url:`${import.meta.env.VITE_URI}/api/${id}`}, {headers: { "Content-Type": "application/json", "authorization": "Bearer " + user.accessToken }})
         .then(res => {
           setPost(res.data);
           setTitle(res.data.title)
@@ -70,7 +70,7 @@ function Update() {
       <label htmlFor="title">Title: </label>
         <input type="text" required name='title' id='title' className='title' value={title} onChange={(e) => setTitle(e.target.value)}/>
         <label htmlFor="body">Body: </label>
-        <Editor apiKey='7b9bztrodn0kidftvkbg5tuk6lqiwpwtl934lt1s1av1ghzr' name="body" id="body" required className='body' 
+        <Editor apiKey={import.meta.env.VITE_EDIT} name="body" id="body" required className='body' 
           onInit={(evt, editor) => ContentRef.current = editor}
           initialValue= {post.content}/>
         <label htmlFor="publish">Publish: </label>
